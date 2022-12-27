@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cicd-nginx-v2
+  name: cicd-nginx
   namespace: default
   labels:
-    app: nginx2
+    app: nginx
     project: cicd
 spec:
   replicas: 1
@@ -28,10 +28,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cicd-nginx-v2
+  name: cicd-nginx
   namespace: default
   labels:
-    app: nginx2
+    app: nginx
     project: cicd
 spec:
   type: ClusterIP
@@ -46,7 +46,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cicd-nginx-v2
+  name: cicd-nginx
   namespace: default
 spec:
   rules:
@@ -55,7 +55,7 @@ spec:
       paths:
       - backend:
           service:
-            name: cicd-nginx-v2
+            name: cicd-nginx
             port:
               number: 80
         path: /
