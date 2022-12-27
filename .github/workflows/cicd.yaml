@@ -17,21 +17,21 @@ jobs:
     - name: Login to image registry
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        #registry: https://harborkubelab.dedyn.io
-        #username: ${{ secrets.HARBOR_USERNAME }} 
-        #password: ${{ secrets.HARBOR_PASSWORD }}
+        #username: ${{ secrets.DOCKERHUB_USERNAME }}
+        #password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        registry: https://harborkubelab.dedyn.io
+        username: ${{ secrets.HARBOR_USERNAME }} 
+        password: ${{ secrets.HARBOR_PASSWORD }}
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-nginx:v2 
+        tags: harborkubelab.dedyn.io/${{ secrets.HARBOR_USERNAME }}/cicd-nginx:v2 
 
-    - uses: Consensys/kubernetes-action@master
-      name: Deploy on Kubernetes
-      env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      with:
-          args: apply -f demo-nginx.yml
+#    - uses: Consensys/kubernetes-action@master
+#      name: Deploy on Kubernetes
+#      env:
+#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#      with:
+#          args: apply -f demo-nginx.yml
